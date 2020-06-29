@@ -44,13 +44,9 @@ func Create(c *gin.Context) {
 	subscription.LastLogin = time.Now()
 	id := models.CreateUser(subscription)
 
-	// Generate connection token
-	token := authentication.GenerateToken(id)
-
 	// Subscription success
 	c.JSON(201, gin.H{
-		"id":    id,
-		"token": token,
+		"id": id,
 	})
 
 	return
