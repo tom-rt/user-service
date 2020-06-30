@@ -14,13 +14,14 @@ func SetupRouter() *gin.Engine {
 	router := gin.New()
 	config := cors.DefaultConfig()
 	config.AllowOrigins = []string{"*"}
+	config.AllowHeaders = append(config.AllowHeaders, "Authorization")
 	router.Use(cors.New(config))
 
 	// Public routes
 	public := router.Group("/v1")
 
 	public.POST("/user", func(c *gin.Context) { user.Create(c) })
-	public.POST("/user/connect", func(c *gin.Context) { user.Connect(c) })
+	public.POST("/user/login", func(c *gin.Context) { user.Connect(c) })
 
 	// Private Routes
 	private := router.Group("/v1")
