@@ -23,7 +23,7 @@ func RefreshToken(c *gin.Context) {
 	token := strings.Split(authorization, "Bearer ")[1]
 	splittedToken := strings.Split(token, ".")
 	if len(splittedToken) != 3 {
-		c.JSON(401, gin.H{
+		c.JSON(403, gin.H{
 			"message": "Bad token",
 		})
 		return
@@ -40,7 +40,7 @@ func RefreshToken(c *gin.Context) {
 	payload := new(models.JwtPayload)
 	err = json.Unmarshal([]byte(decPayload), payload)
 	if err != nil {
-		c.JSON(401, gin.H{
+		c.JSON(403, gin.H{
 			"message": "Bad token",
 		})
 		return
@@ -49,7 +49,7 @@ func RefreshToken(c *gin.Context) {
 	// Check signature
 	encSignature := GenerateSignature(encHeader, encPayload)
 	if encSignature != signature {
-		c.JSON(401, gin.H{
+		c.JSON(403, gin.H{
 			"message": "Bad signature",
 		})
 		return
@@ -68,7 +68,7 @@ func RefreshToken(c *gin.Context) {
 
 	if duration > hoursToMilliseconds(refreshLimit) {
 		models.SetReauth(payload.ID, true)
-		c.JSON(401, gin.H{
+		c.JSON(403, gin.H{
 			"message": "Token has expired and cannot be refreshed, please reconnect",
 		})
 		return
@@ -78,7 +78,7 @@ func RefreshToken(c *gin.Context) {
 	var reauth bool
 	reauth, err = GetReauth(payload.ID)
 	if reauth {
-		c.JSON(401, gin.H{
+		c.JSON(403, gin.H{
 			"message": "Please reconnect.",
 		})
 		return
@@ -153,21 +153,21 @@ func VerifyToken(encHeader string, encPayload string, encSignature string) (isVa
 	payload := new(models.JwtPayload)
 	err = json.Unmarshal([]byte(decPayload), payload)
 	if err != nil {
-		return false, "Bad token", 401, -1
+		return false, "Bad token", 403, -1
 	}
 
 	// Check if the user has to reconnect
 	var reauth bool
 	reauth, err = GetReauth(payload.ID)
 	if reauth {
-		return false, "Please reconnect", 401, -1
+		return false, "Please reconnect", 403, -1
 	} else if err != nil {
 		return false, "User id in token payload does not exist.", 404, -1
 	}
 
 	checkSignature := GenerateSignature(encHeader, encPayload)
 	if encSignature != checkSignature {
-		return false, "Bad signature", 401, -1
+		return false, "Bad signature", 403, -1
 	}
 
 	// Check token validity date
