@@ -173,7 +173,7 @@ func VerifyToken(encHeader string, encPayload string, encSignature string) (isVa
 	// Check token validity date
 	now := nowAsUnixMilli()
 	if now >= payload.Exp {
-		return false, "Token has expired", 401, -1
+		return false, "Token expired.", 401, -1
 	}
 
 	return true, "Token valid", 200, payload.ID

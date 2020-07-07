@@ -206,7 +206,8 @@ func Connect(c *gin.Context) {
 	// Generate and return a token
 	jwtToken := authentication.GenerateToken(user.ID)
 	c.JSON(200, gin.H{
-		"token": jwtToken,
+		"token":  jwtToken,
+		"userId": user.ID,
 	})
 	return
 }
