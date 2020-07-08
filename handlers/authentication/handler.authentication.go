@@ -66,9 +66,10 @@ func RefreshToken(c *gin.Context) {
 		refreshLimit = 24
 	}
 
-	if duration > hoursToMilliseconds(refreshLimit) {
+	// if duration > hoursToMilliseconds(refreshLimit) {
+	if duration > minutesToMilliseconds(refreshLimit) {
 		models.SetReauth(payload.ID, true)
-		c.JSON(403, gin.H{
+		c.JSON(401, gin.H{
 			"message": "Token has expired and cannot be refreshed, please reconnect",
 		})
 		return
@@ -78,7 +79,7 @@ func RefreshToken(c *gin.Context) {
 	var reauth bool
 	reauth, err = GetReauth(payload.ID)
 	if reauth {
-		c.JSON(403, gin.H{
+		c.JSON(401, gin.H{
 			"message": "Please reconnect.",
 		})
 		return
@@ -160,7 +161,7 @@ func VerifyToken(encHeader string, encPayload string, encSignature string) (isVa
 	var reauth bool
 	reauth, err = GetReauth(payload.ID)
 	if reauth {
-		return false, "Please reconnect", 403, -1
+		return false, "Please reconnect", 401, -1
 	} else if err != nil {
 		return false, "User id in token payload does not exist.", 404, -1
 	}

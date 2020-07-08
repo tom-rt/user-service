@@ -2,9 +2,11 @@
 
 ## TODO
 
-
 Replace time functions with time lib
 Check error: jsonHeader, _ := json.Marshal(header)
+fix tests return values
+refresh token error on empty token
+
 Dockerfile
 
 Forgotten password feature
