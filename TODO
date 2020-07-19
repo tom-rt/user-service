@@ -2,8 +2,6 @@
 
 ## TODO
 
-Replace time functions with time lib
-Check error: jsonHeader, _ := json.Marshal(header)
 refresh token error on empty token
 
 Dockerfile

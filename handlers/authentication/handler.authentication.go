@@ -19,8 +19,26 @@ import (
 
 // RefreshToken controller function
 func RefreshToken(c *gin.Context) {
+	// Check a token is present
+	_, checkToken := c.Request.Header["Authorization"]
+	if checkToken == false {
+		c.JSON(403, gin.H{
+			"message": "No token provided",
+		})
+		c.Abort()
+		return
+	}
+
+	// Check if the token is formatted properly
 	authorization := c.Request.Header["Authorization"][0]
-	token := strings.Split(authorization, "Bearer ")[1]
+	bearer := strings.Split(authorization, "Bearer ")
+	if len(bearer) != 2 {
+		c.JSON(403, gin.H{
+			"message": "Bad token",
+		})
+		return
+	}
+	token := bearer[1]
 	splittedToken := strings.Split(token, ".")
 	if len(splittedToken) != 3 {
 		c.JSON(403, gin.H{
@@ -116,6 +134,7 @@ func GenerateToken(id int) string {
 	header = new(models.JwtHeader)
 	header.Alg = alg
 	header.Typ = typ
+	// Error return is ignored here as it cant fail.
 	jsonHeader, _ := json.Marshal(header)
 	encHeader := base64.RawURLEncoding.EncodeToString([]byte(string(jsonHeader)))
 
