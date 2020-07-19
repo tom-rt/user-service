@@ -38,9 +38,9 @@ func TestUserDuplicate(t *testing.T) {
 	var user models.UserCreate = utils.CreateUser("John", "qwerty1234", t, router)
 	user.Token = utils.ConnectUser("John", "qwerty1234", t, router)
 
-	var scndStr = []byte(`{"name":"John", "password": "1234qwerty"}`)
+	var login = []byte(`{"name":"John", "password": "1234qwerty"}`)
 	record := httptest.NewRecorder()
-	request, _ := http.NewRequest("POST", "/v1/user", bytes.NewBuffer(scndStr))
+	request, _ := http.NewRequest("POST", "/v1/user", bytes.NewBuffer(login))
 	request.Header.Add("Content-Type", "application/json")
 
 	router.ServeHTTP(record, request)
