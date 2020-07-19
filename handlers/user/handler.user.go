@@ -3,10 +3,10 @@ package user
 import (
 	"fmt"
 	"net/http"
+	"rakoon/rakoon-back/handlers/authentication"
+	"rakoon/rakoon-back/models"
 	"strconv"
 	"time"
-	"user-service/handlers/authentication"
-	"user-service/models"
 
 	"github.com/gin-gonic/gin"
 )

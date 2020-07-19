@@ -6,11 +6,11 @@ import (
 	"log"
 	"net/http"
 	"net/http/httptest"
+	"rakoon/rakoon-back/db"
+	"rakoon/rakoon-back/models"
+	"rakoon/rakoon-back/routes"
+	"rakoon/rakoon-back/tests/utils"
 	"strconv"
-	"user-service/db"
-	"user-service/models"
-	"user-service/routes"
-	"user-service/tests/utils"
 
 	"testing"
 

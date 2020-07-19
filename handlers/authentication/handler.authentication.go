@@ -3,10 +3,10 @@ package authentication
 import (
 	"math/rand"
 	"os"
+	"rakoon/rakoon-back/models"
 	"strconv"
 	"strings"
 	"time"
-	"user-service/models"
 
 	"crypto/hmac"
 	"crypto/sha256"

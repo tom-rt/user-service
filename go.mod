@@ -1,4 +1,4 @@
-module user-service
+module rakoon/rakoon-back
 
 go 1.13
 

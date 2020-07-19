@@ -1,8 +1,8 @@
 package models
 
 import (
+	"rakoon/rakoon-back/db"
 	"time"
-	"user-service/db"
 )
 
 // User object
