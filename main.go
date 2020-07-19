@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"rakoon/rakoon-back/db"
-	"rakoon/rakoon-back/routes"
+	"user-service/db"
+	"user-service/routes"
 )
 
 func main() {
