@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	"rakoon/rakoon-back/handlers/authentication"
 	"strings"
+	"user-service/handlers/authentication"
 
 	"github.com/gin-gonic/gin"
 )

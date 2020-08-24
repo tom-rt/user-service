@@ -6,9 +6,9 @@ import (
 	"log"
 	"net/http"
 	"net/http/httptest"
-	"rakoon/rakoon-back/models"
 	"strconv"
 	"testing"
+	"user-service/models"
 
 	"github.com/gin-gonic/gin"
 	"gopkg.in/go-playground/assert.v1"

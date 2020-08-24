@@ -1,9 +1,9 @@
 package routes
 
 import (
-	"rakoon/rakoon-back/handlers/authentication"
-	"rakoon/rakoon-back/handlers/user"
-	"rakoon/rakoon-back/middleware"
+	"user-service/handlers/authentication"
+	"user-service/handlers/user"
+	"user-service/middleware"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
