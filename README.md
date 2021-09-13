@@ -12,7 +12,7 @@ You can initialize the database model with the files located in the psql folder.
 
 ## Auth
 
-It uses json web tokens. I don't use a lib, I implemented everything.
+It uses json web tokens. Everything is implemented manually.
 
 ## Testing
 
